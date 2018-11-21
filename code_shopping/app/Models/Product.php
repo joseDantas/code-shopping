@@ -5,6 +5,9 @@ namespace CodeShopping\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static findOrFail($product_id)
+ */
 class Product extends Model
 {
     use Sluggable;

@@ -12,4 +12,9 @@ class ProductPhoto extends Model
     const PRODUCTS_PATH = self::BASE_PATH . '/' . self::DIR_PRODUCTS;
 
     protected $fillabel = ['file_name', 'product_id'];
+
+    public static function photosPath($productId){
+        $path = self::PRODUCTS_PATH;
+        return storage_path("{$path}/{$productId}"); //Caminho absoluto até a pasta que vai conter as imagens, que é do ID do produto
+    }
 }

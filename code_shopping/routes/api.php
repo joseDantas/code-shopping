@@ -20,6 +20,7 @@ Route::group(['namespace' => 'Api', 'as' => 'api.'], function(){
     Route::resource('categories', 'CategoryController', ['except' => ['create', 'edit']]);     //except foi usado para tirar a opção de "Create e Edit'  da criação do recurso Categories pois não eram necessários
     Route::resource('products', 'ProductController', ['except' => ['create', 'edit']]);
     Route::resource('products.categories', 'ProductCategoryController', ['only' => ['index', 'store', 'destroy']]);
+    Route::resource('products.photos', 'ProductPhotoController', ['except' => ['create', 'edit']]);
     Route::resource('inputs', 'ProductInputController', ['only' => ['index', 'store', 'show']]);
     Route::resource('outputs', 'ProductOutputController', ['only' => ['index', 'store', 'show']]);
 });

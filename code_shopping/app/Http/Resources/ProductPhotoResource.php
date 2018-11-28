@@ -10,7 +10,7 @@ class ProductPhotoResource extends JsonResource
     public function __construct($resource, $isCollection = false)
     {
         parent::__construct($resource);
-        $this->isCollection= $isCollection;
+        $this->isCollection = $isCollection;
     }
 
     public function toArray($request)

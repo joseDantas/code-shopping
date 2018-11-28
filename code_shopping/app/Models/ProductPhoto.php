@@ -25,9 +25,29 @@ class ProductPhoto extends Model
     }
 
     public static function createWithPhotosFile(int $productId, array $files): Collection{
-        self::uploadFiles($productId,$files);
-        $photos = self::createPhotosModels($productId, $files);
-        return new Collection($photos);
+        try{
+            self::uploadFiles($productId,$files);
+            \DB::beginTransaction();
+            $photos = self::createPhotosModels($productId, $files);
+            \DB::commit();
+            return new Collection($photos);
+        }catch(\Exception $e){
+            self::deleteFiles($productId, $files);
+            \DB::rollBack();
+            throw $e;
+        }
+
+    }
+
+    private static function deleteFiles(int $productId, array $files){
+        /** @var UploadedFile $file */
+        foreach ($files as $file){
+            $path = self::photosPath($productId);
+            $photoPath = "{$path}/{$file->hashName()}";
+            if (file_exists($photoPath)){
+                \File::delete($photoPath);
+            }
+        }
     }
 
     public static function uploadFiles(int $productId, array $files){

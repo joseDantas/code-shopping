@@ -23,7 +23,7 @@ class ProductPhotoResource extends JsonResource
 
             ];
             if(!$this->isCollection) {
-                $data['product'] =new ProductResource($this->product);
+                $data['product'] = new ProductResource($this->product);
                     };
         return $data;
     }

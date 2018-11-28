@@ -6,15 +6,25 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductPhotoResource extends JsonResource
 {
+    private $isCollection;
+    public function __construct($resource, $isCollection = false)
+    {
+        parent::__construct($resource);
+        $this->isCollection= $isCollection;
+    }
 
     public function toArray($request)
     {
-        return [
+        $data = [
             'id'=> $this->id,
             'poto_url'=> $this->photo_url,
             'created_at'=>$this->created_at,
             'updated_at'=>$this->updated_at,
-            'product'=>new ProductResource($this->product)
-        ];
+
+            ];
+            if(!$this->isCollection) {
+                $data['product'] =new ProductResource($this->product);
+                    };
+        return $data;
     }
 }

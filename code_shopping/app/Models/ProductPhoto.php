@@ -7,9 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 
 
-/**
- * @method static create(array $array)
- */
+
 class ProductPhoto extends Model
 {
     const BASE_PATH = 'app/public';
@@ -17,7 +15,7 @@ class ProductPhoto extends Model
 
     const PRODUCTS_PATH = self::BASE_PATH . '/' . self::DIR_PRODUCTS;
 
-    protected $fillabel = ['file_name', 'product_id'];
+    protected $fillable = ['file_name', 'product_id'];
 
     public static function photosPath($productId){
         $path = self::PRODUCTS_PATH;
@@ -25,18 +23,43 @@ class ProductPhoto extends Model
     }
 
     public static function createWithPhotosFile(int $productId, array $files): Collection{
+
         try{
-            self::uploadFiles($productId,$files);
+            self::uploadFiles($productId, $files);
             \DB::beginTransaction();
             $photos = self::createPhotosModels($productId, $files);
             \DB::commit();
             return new Collection($photos);
-        }catch(\Exception $e){
+        }catch (\Exception $e){
             self::deleteFiles($productId, $files);
             \DB::rollBack();
             throw $e;
         }
 
+    }
+
+    public function updateWithPhoto(UploadedFile $file): ProductPhoto
+    {
+
+        try{
+            self::uploadFiles($this->product_id, [$file]);
+            \DB::beginTransaction();
+            $this->deletePhoto($this->file_name);
+           $this->file_name = $file->hashName();
+           $this-> save();
+            \DB::commit();
+            return $this;
+        }catch (\Exception $e){
+            self::deleteFiles($this->product_id, [$file]);
+            \DB::rollBack();
+            throw $e;
+        }
+
+    }
+
+    private function deletePhoto($fileName){
+        $dir = self::photosDir($this->product_id);
+        \Storage::disk('public')->delete("{$dir}/{$fileName}");
     }
 
     private static function deleteFiles(int $productId, array $files){
@@ -79,7 +102,6 @@ class ProductPhoto extends Model
         $dir = self::DIR_PRODUCTS;
         return "{$dir}/{$productId}";
     }
-
 
     //muitos pra um
     public function  product(){

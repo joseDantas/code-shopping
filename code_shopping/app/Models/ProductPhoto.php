@@ -57,7 +57,22 @@ class ProductPhoto extends Model
 
     }
 
-    private function deletePhoto($fileName){
+    public function deleteWithPhoto(): bool { //exclusão lógica
+        try{
+
+            \DB::beginTransaction();
+            $this->deletePhoto($this->file_name);
+           $result = $this->delete(); //exclui o registro
+            $this-> save();
+            \DB::commit();
+            return $result;
+        }catch (\Exception $e){
+            \DB::rollBack();
+            throw $e;
+        }
+    }
+
+    private function deletePhoto($fileName){    //exclui a foto
         $dir = self::photosDir($this->product_id);
         \Storage::disk('public')->delete("{$dir}/{$fileName}");
     }

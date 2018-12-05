@@ -7,13 +7,17 @@ use CodeShopping\Http\Requests\ProductRequest;
 use CodeShopping\Http\Resources\ProductResource;
 use CodeShopping\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder; //pacote de "query"
 
 class ProductController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        return ProductResource::collection(Product::paginate(10)); //personalização dos dados
+        $query = Product::query();
+        $query = $this->onlyTrashedIfRequest($request, $query);
+        $products = $query->paginate(10);
+        return ProductResource::collection($products); //personalização dos dados
     }
 
     public function store(ProductRequest $request)
@@ -39,5 +43,12 @@ class ProductController extends Controller
     {
         $product->delete();
         return response()->json([], 204);
+    }
+
+    private function onlyTrashedIfRequest(Request $request, Builder $query){
+        if($request->get('trashed') == 1){
+            $query = $query->onlyTrashed();
+        }
+        return $query;
     }
 }

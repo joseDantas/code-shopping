@@ -120,6 +120,6 @@ class ProductPhoto extends Model
 
     //muitos pra um
     public function  product(){
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class)->withTrashed(); //->withTrashed():se o produto tiver excluido também pode consultar
     }
 }

@@ -13,6 +13,7 @@ class UserController extends Controller
 {
     use OnlyTrashed;
 
+
     public function index(Request $request)
     {
         $query = User::query();

@@ -27,4 +27,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public static function createCustom($attributes = array())
+    {
+        //Se não tiver password , (!isset($attributes['password']) ?)não faz nada
+        //Se tiver vai fazer a atribuição (: $attributes['password'] = bcrypt($attributes['password']);)
+        !isset($attributes['password']) ?: $attributes['password'] = bcrypt($attributes['password']);
+        return parent::create($attributes);
+    }
 }

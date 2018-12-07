@@ -3,6 +3,7 @@
 namespace CodeShopping\Http\Controllers\Api;
 
 use CodeShopping\Http\Controllers\Controller;
+use CodeShopping\Http\Requests\UserRequest;
 use CodeShopping\Http\Resources\UserResource;
 use CodeShopping\Models\User;
 use Illuminate\Http\Request;
@@ -15,9 +16,10 @@ class UserController extends Controller
         return UserResource::collection($users);
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-
+        $user = User::createCustom($request->all());
+        return new UserResource($user);
     }
 
     public function show(User $user)

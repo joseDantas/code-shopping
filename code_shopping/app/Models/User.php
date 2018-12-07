@@ -23,6 +23,7 @@ class User extends Authenticatable
      *
      * @var array
      */
+    //campo relembrar  senha Login
     protected $hidden = [
         'password', 'remember_token',
     ];

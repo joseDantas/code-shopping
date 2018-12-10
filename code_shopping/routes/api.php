@@ -18,9 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::group(['namespace' => 'Api', 'as' => 'api.'], function() {
     Route::name('login')->post('login', 'AuthController@login');
+    Route::name('refresh')->post('refresh', 'AuthController@refresh');
 
        //Protegendo a API
-    Route::group(['middleware' => 'auth:api'], function () {
+    Route::group(['middleware' => ['auth:api','jwt.refresh']], function () {
+        Route::name('logout')->post('logout', 'AuthController@logout');
+        Route::name('me')->get('me', 'AuthController@me');
         Route::patch('products/{product}/restore', 'ProductController@restore');    //restauração do produto
         Route::resource('categories', 'CategoryController', ['except' => ['create', 'edit']]);     //except foi usado para tirar a opção de "Create e Edit'  da criação do recurso Categories pois não eram necessários
         Route::resource('products', 'ProductController', ['except' => ['create', 'edit']]);
@@ -31,3 +34,5 @@ Route::group(['namespace' => 'Api', 'as' => 'api.'], function() {
         Route::resource('users', 'UserController', ['except' => ['create', 'edit']]);
     });
 });
+
+//jwt.refresh-> auto refresh

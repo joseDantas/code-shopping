@@ -1,17 +1,21 @@
-<form class="form-signin">
+<form class="form-signin" (submit)="submit()">
   <div class="text-center mb-4">
     <h1 class="h3 mb-3 font-weight-normal">Code Shopping - Login</h1>
   </div>
 
   <div class="form-label-group">
-    <input type="email" id="inputEmail" class="form-control" placeholder="Digite o email" required autofocus>
+    <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Digite o email" required autofocus
+            [(ngModel)]="credentials.email">
     <label for="inputEmail">Digite o email</label>
   </div>
 
   <div class="form-label-group">
-    <input type="password" id="inputPassword" class="form-control" placeholder="Digite a senha" required>
+    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Digite a senha" required
+           [(ngModel)]="credentials.password">
     <label for="inputPassword">Digite a senha</label>
   </div>
 
   <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+
+  {{credentials|json}}
 </form>

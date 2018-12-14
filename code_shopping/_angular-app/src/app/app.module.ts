@@ -35,7 +35,7 @@ const routes: Routes = [    //mapeamento de rotas
       BrowserModule,
       FormsModule,
       HttpClientModule,
-      RouterModule.forRoot(routes)
+      RouterModule.forRoot(routes, {enableTracing: true})
 
   ],
   providers: [],

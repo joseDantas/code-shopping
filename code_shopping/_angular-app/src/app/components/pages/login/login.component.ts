@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {subscribeOn} from "rxjs/operators";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -19,9 +20,19 @@ export class LoginComponent implements OnInit {
   }
 
   submit(){
-      this.http.post('http://localhost:8000/api/login', this.credentials)
-          .subscribe((data) => console.log(data));
+      this.http.post<any>('http://localhost:8000/api/login', this.credentials)
+          .subscribe((data) =>{
+            const token = data.token;
+            this.http.get('http://localhost:8000/api/categories', {
+              headers: {
+                'Authorization': `Bearer ${token}`
+              }
+            })
+                .subscribe(data => console.log(data));
+          });
       return false
   }
 
 }
+
+//comando <any> faz com que o JS aceite qualquer tipo de dados

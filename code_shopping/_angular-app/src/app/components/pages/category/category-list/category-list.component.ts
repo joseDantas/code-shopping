@@ -17,12 +17,13 @@ export class CategoryListComponent implements OnInit {
   ngOnInit() {
     console.log('ngOnInit');
       const token = window.localStorage.getItem('token');
-      this.http.get<Array<any>>('http://localhost:8000/api/categories', {
+      this.http.get<{data: Array<any>}>('http://localhost:8000/api/categories', {
        headers: {
         'Authorization': `Bearer ${token}`
       }
       })
-       .subscribe(data => this.categories = data);
+       .subscribe(response => this.categories = response.data);
   }
 
 }
+//<{data: Array<any>}> vai ser recebido um objeto, dentro desse objeto vai ter um propriedade do tipo DATA e este, será um ARRAY que pode receber qualquer tipo de elemento

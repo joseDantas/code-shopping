@@ -21,7 +21,9 @@ Route::group(['namespace' => 'Api', 'as' => 'api.'], function() {
     Route::name('refresh')->post('refresh', 'AuthController@refresh');
 
        //Protegendo a API
-    Route::group(['middleware' => ['auth:api','jwt.refresh']], function () {
+    Route::group(['middleware' => ['auth:api',
+        //'jwt.refresh'
+        ]], function () {
         Route::name('logout')->post('logout', 'AuthController@logout');
         Route::name('me')->get('me', 'AuthController@me');
         Route::patch('products/{product}/restore', 'ProductController@restore');    //restauração do produto

@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
       password: ''
   }
 
+  showMessageError = false;  //erro quando o login estiver errado
+
   constructor(private http: HttpClient, private router: Router) {   //injeção de dependencia automatica
 
 
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['categories/list']);
 
 
-          });
+          },() => this.showMessageError = true); //erro quando o login estiver errado
       return false
   }
 

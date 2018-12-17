@@ -10,6 +10,7 @@ import {FormsModule} from "@angular/forms";
 import {RouterModule, Routes} from "@angular/router";
 import {HttpClientModule} from '@angular/common/http';
 import { AlertErrorComponent } from './components/bootstrap/alert-error/alert-error.component';
+import { ModalComponent } from './components/bootstrap/modal/modal.component';
 
 
 
@@ -33,6 +34,7 @@ const routes: Routes = [    //mapeamento de rotas
     LoginComponent,
     CategoryListComponent,
     AlertErrorComponent,
+    ModalComponent,
   ],
   imports: [
       BrowserModule,

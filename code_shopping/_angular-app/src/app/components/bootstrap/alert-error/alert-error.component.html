@@ -1,6 +1,7 @@
-<div class="alert alert-danger " role="alert" >
+<div class="alert alert-danger " role="alert" *ngIf="_show">
   <ng-content></ng-content>
-  <button type="button" class="close" aria-label="Close">   <!--botão de fechar o alerta-->
+  <button type="button" class="close" aria-label="Close" (click)="hide()">   <!--botão de fechar o alerta-->
     <span aria-hidden="true">&times;</span>
   </button>
+  {{show}}
 </div>

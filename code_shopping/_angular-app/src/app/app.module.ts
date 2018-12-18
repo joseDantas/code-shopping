@@ -11,6 +11,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {HttpClientModule} from '@angular/common/http';
 import { AlertErrorComponent } from './components/bootstrap/alert-error/alert-error.component';
 import { ModalComponent } from './components/bootstrap/modal/modal.component';
+import { CategoryNewModalComponent } from './components/pages/category/category-new-modal/category-new-modal.component';
 
 
 
@@ -35,6 +36,7 @@ const routes: Routes = [    //mapeamento de rotas
     CategoryListComponent,
     AlertErrorComponent,
     ModalComponent,
+    CategoryNewModalComponent,
   ],
   imports: [
       BrowserModule,

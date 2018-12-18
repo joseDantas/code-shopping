@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {ModalComponent} from "../../../bootstrap/modal/modal.component";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {CategoryNewModalComponent} from "../category-new-modal/category-new-modal.component";
 
-declare var $;
 
 @Component({
   selector: 'app-category-list',
@@ -13,12 +12,9 @@ export class CategoryListComponent implements OnInit {
 
   categories = [];
 
-  category = {
-      name:''
-  };
+  @ViewChild(CategoryNewModalComponent)
+  categoryNewModal: CategoryNewModalComponent;
 
-  @ViewChild(ModalComponent)
-  modal: ModalComponent;
 
   constructor(private http:HttpClient) {
     //this.a = '';
@@ -27,21 +23,6 @@ export class CategoryListComponent implements OnInit {
   ngOnInit() {
     console.log('ngOnInit');
       this.getCategory();
-  }
-
-  submit(){
-      const token = window.localStorage.getItem('token');
-      this.http
-          .post('http://localhost:8000/api/categories', this.category, {
-          headers: {
-              'Authorization': `Bearer ${token}`
-          }
-      })
-          .subscribe((category) => {
-              console.log(category);
-              this.getCategory();
-              $('#exampleModal').modal('hide')
-          });
   }
 
   getCategory(){
@@ -57,16 +38,19 @@ export class CategoryListComponent implements OnInit {
           });
   }
 
-  showModal(){
-      this.modal.show()
-      setTimeout(()=>{
-          this.modal.hide()
-      }, 3000)
+  showModalInsert(){
+      this.categoryNewModal.showModal()
   }
 
-  hideModel($event: Event){
+    onInsertSuccess($event: any){
+      //console.log($event);
+      this.getCategory();
+}
+
+    onInsertError($event: HttpErrorResponse){
       console.log($event);
-  }
+    }
+
 
 }
 //<{data: Array<any>}> vai ser recebido um objeto, dentro desse objeto vai ter um propriedade do tipo DATA e este, será um ARRAY que pode receber qualquer tipo de elemento

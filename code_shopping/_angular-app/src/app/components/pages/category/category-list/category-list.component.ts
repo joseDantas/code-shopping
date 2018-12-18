@@ -39,7 +39,6 @@ export class CategoryListComponent implements OnInit {
           }
       })
           .subscribe(response => {
-              response.data[0].active = false;
               this.categories = response.data
           });
   }

@@ -10,7 +10,8 @@
   export class CategoryEditModalComponent implements OnInit {
 
       category = {
-          name:''
+          name:'',
+          active: true
       };
 
 

@@ -13,6 +13,7 @@ import { AlertErrorComponent } from './components/bootstrap/alert-error/alert-er
 import { ModalComponent } from './components/bootstrap/modal/modal.component';
 import { CategoryNewModalComponent } from './components/pages/category/category-new-modal/category-new-modal.component';
 import { CategoryEditModalComponent } from './components/pages/category/category-edit-modal/category-edit-modal.component';
+import { CategoryDeleteModalComponent } from './components/pages/category/category-delete-modal/category-delete-modal.component';
 
 
 
@@ -39,6 +40,7 @@ const routes: Routes = [    //mapeamento de rotas
     ModalComponent,
     CategoryNewModalComponent,
     CategoryEditModalComponent,
+    CategoryDeleteModalComponent,
   ],
   imports: [
       BrowserModule,

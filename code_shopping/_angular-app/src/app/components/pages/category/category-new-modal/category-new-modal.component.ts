@@ -32,7 +32,6 @@ export class CategoryNewModalComponent implements OnInit {
                 }
             })
             .subscribe((category) => {
-                console.log(category);
                 this.onSuccess.emit(category);
                 this.modal.hide();
                 //this.getCategory();

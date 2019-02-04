@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpErrorResponse} from "@angular/common/http";
 import {CategoryNewModalComponent} from "../category-new-modal/category-new-modal.component";
 import {CategoryEditModalComponent} from "../category-edit-modal/category-edit-modal.component";
 import {CategoryDeleteModalComponent} from "../category-delete-modal/category-delete-modal.component";
 import {CategoryHttpService} from "../../../../services/http/category-http.service";
+import {Category} from "../../../../model";
+import {NotifyMessageService} from "../../../../services/notify-message.service";
+
 
 
 @Component({
@@ -13,7 +16,7 @@ import {CategoryHttpService} from "../../../../services/http/category-http.servi
 })
 export class CategoryListComponent implements OnInit {
 
-  categories = [];
+  categories: Array<Category> = [];
 
   @ViewChild(CategoryNewModalComponent)
   categoryNewModal: CategoryNewModalComponent;
@@ -27,7 +30,7 @@ export class CategoryListComponent implements OnInit {
   categoryId: number;
 
 
-  constructor(private http:HttpClient, public categoryHttp:CategoryHttpService) {
+  constructor(public categoryHttp:CategoryHttpService, private notifyMessage: NotifyMessageService) {
     //this.a = '';
   }
 
@@ -37,6 +40,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   getCategory(){
+      //this.categoryHttp.get(1).subscribe(category)
       this.categoryHttp.list()
         .subscribe(response => {
             this.categories = response.data
@@ -48,6 +52,7 @@ export class CategoryListComponent implements OnInit {
   }
 
     showModalEdit(categoryId: number){
+
       this.categoryId = categoryId;
         this.categoryEditModal.showModal()
     }
@@ -58,6 +63,7 @@ export class CategoryListComponent implements OnInit {
     }
 
     onInsertSuccess($event: any){
+      this.notifyMessage.success('Categoria cadastrado com sucesso!');
       console.log($event);
       this.getCategory();
 }
@@ -81,8 +87,10 @@ export class CategoryListComponent implements OnInit {
     }
 
     onDeleteError($event: HttpErrorResponse){
-        console.log($event);
+        this.notifyMessage.error('Não foi possivel excluir a categoria! ' +
+            'Verifique se a mesma não está relacionado com o produto')
     }
+
 
 
 }

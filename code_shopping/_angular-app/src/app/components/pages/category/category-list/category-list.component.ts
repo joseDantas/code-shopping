@@ -18,7 +18,7 @@ import {CategoryDeleteServive} from "./category-delete.servive";
 export class CategoryListComponent implements OnInit {
 
   categories: Array<Category> = [];
-
+  page = 1;
   @ViewChild(CategoryNewModalComponent)
   categoryNewModal: CategoryNewModalComponent;
 

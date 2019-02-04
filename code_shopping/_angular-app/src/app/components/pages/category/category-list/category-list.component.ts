@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {CategoryNewModalComponent} from "../category-new-modal/category-new-modal.component";
 import {CategoryEditModalComponent} from "../category-edit-modal/category-edit-modal.component";
 import {CategoryDeleteModalComponent} from "../category-delete-modal/category-delete-modal.component";
+import {CategoryHttpService} from "../../../../services/http/category-http.service";
 
 
 @Component({
@@ -26,7 +27,7 @@ export class CategoryListComponent implements OnInit {
   categoryId: number;
 
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient, public categoryHttp:CategoryHttpService) {
     //this.a = '';
   }
 
@@ -36,15 +37,10 @@ export class CategoryListComponent implements OnInit {
   }
 
   getCategory(){
-      const token = window.localStorage.getItem('token');
-      this.http.get<{data: Array<any>}>('http://localhost:8000/api/categories', {
-          headers: {
-              'Authorization': `Bearer ${token}`
-          }
-      })
-          .subscribe(response => {
-              this.categories = response.data
-          });
+      this.categoryHttp.list()
+        .subscribe(response => {
+            this.categories = response.data
+        });
   }
 
   showModalInsert(){

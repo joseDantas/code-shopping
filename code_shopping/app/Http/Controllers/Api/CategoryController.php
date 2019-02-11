@@ -13,7 +13,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        return CategoryResource::collection(Category::all()); // 'CategoryResource' serve para personlizar os dados
+        return CategoryResource::collection(Category::paginate(5)); // 'CategoryResource' serve para personlizar os dados
     }
 
     public function store(CategoryRequest $request)

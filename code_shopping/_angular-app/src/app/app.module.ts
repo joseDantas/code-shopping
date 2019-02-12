@@ -14,8 +14,11 @@ import { ModalComponent } from './components/bootstrap/modal/modal.component';
 import { CategoryNewModalComponent } from './components/pages/category/category-new-modal/category-new-modal.component';
 import { CategoryEditModalComponent } from './components/pages/category/category-edit-modal/category-edit-modal.component';
 import { CategoryDeleteModalComponent } from './components/pages/category/category-delete-modal/category-delete-modal.component';
+import { ProductListComponent } from './components/pages/product/product-list/product-list.component';
+import { ProductNewModalComponent } from './components/pages/product/product-new-modal/product-new-modal.component';
+import { ProductEditModalComponent } from './components/pages/product/product-edit-modal/product-edit-modal.component';
+import { ProductDeleteModalComponent } from './components/pages/product/product-delete-modal/product-delete-modal.component';
 import { NgxPaginationModule} from "ngx-pagination";
-
 
 
 
@@ -25,6 +28,9 @@ const routes: Routes = [    //mapeamento de rotas
      },
     {
         path: 'categories/list', component: CategoryListComponent
+    },
+    {
+        path: 'products/list', component: ProductListComponent
     },
     {       //quando a página estiver totalmente vazia, redireciona para a página de login
         path: '',
@@ -42,6 +48,10 @@ const routes: Routes = [    //mapeamento de rotas
     CategoryNewModalComponent,
     CategoryEditModalComponent,
     CategoryDeleteModalComponent,
+    ProductListComponent,
+    ProductNewModalComponent,
+    ProductEditModalComponent,
+    ProductDeleteModalComponent,
   ],
   imports: [
       BrowserModule,

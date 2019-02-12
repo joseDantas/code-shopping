@@ -20,6 +20,11 @@ import { ProductEditModalComponent } from './components/pages/product/product-ed
 import { ProductDeleteModalComponent } from './components/pages/product/product-delete-modal/product-delete-modal.component';
 import { NgxPaginationModule} from "ngx-pagination";
 import { NumberFormatBrPipe } from './pipes/number-format-br.pipe';
+import { ProductCategoryListComponent } from './components/pages/product-category/product-category-list/product-category-list.component';
+import { UserListComponent } from './components/pages/user/user-list/user-list.component';
+import { UserNewModalComponent } from './components/pages/user/user-new-modal/user-new-modal.component';
+import { UserEditModalComponent } from './components/pages/user/user-edit-modal/user-edit-modal.component';
+import { UserDeleteModalComponent } from './components/pages/user/user-delete-modal/user-delete-modal.component';
 
 
 
@@ -31,7 +36,14 @@ const routes: Routes = [    //mapeamento de rotas
         path: 'categories/list', component: CategoryListComponent
     },
     {
+        path: 'products/:product/categories/list', component: ProductCategoryListComponent
+    },
+    {
         path: 'products/list', component: ProductListComponent
+    },
+
+    {
+        path: 'user/list', component: ProductListComponent
     },
     {       //quando a página estiver totalmente vazia, redireciona para a página de login
         path: '',
@@ -54,6 +66,11 @@ const routes: Routes = [    //mapeamento de rotas
     ProductEditModalComponent,
     ProductDeleteModalComponent,
     NumberFormatBrPipe,
+    ProductCategoryListComponent,
+    UserListComponent,
+    UserNewModalComponent,
+    UserEditModalComponent,
+    UserDeleteModalComponent,
   ],
   imports: [
       BrowserModule,

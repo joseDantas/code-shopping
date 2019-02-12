@@ -3,12 +3,13 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from 'rxjs/internal/Observable'
 import {map} from "rxjs/operators";
 import {Category} from "../../model";
+import {HttpResource} from "./http-resource";
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryHttpService {
+export class CategoryHttpService implements HttpResource<Category>{
 
     private baseUrl = 'http://localhost:8000/api/categories';
 
@@ -58,7 +59,7 @@ export class CategoryHttpService {
           );
   }
 
-  update(id: number, data: Category){
+  update(id: number, data: Category): Observable<Category>{
       const token = window.localStorage.getItem('token');
       return this.http
           .put<{data: Category}>(`${this.baseUrl}/${id}`, data, {

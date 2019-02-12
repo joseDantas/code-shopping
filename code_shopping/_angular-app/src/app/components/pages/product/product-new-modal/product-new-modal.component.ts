@@ -16,7 +16,7 @@ export class ProductNewModalComponent implements OnInit {
     product: Product = {
         name:'',
         description:'',
-        price:1,
+        price:0,
         active: true
     };
 

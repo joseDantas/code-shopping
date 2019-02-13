@@ -1,7 +1,6 @@
   <div class="col col-md-4 offset-4" *ngIf="showMessageError">
     <alert-error [(show)]="showMessageError">Login inválido</alert-error>
   </div>
-  {{showMessageError}}
 
   <form class="form-signin" (submit)="submit()">
     <div class="text-center mb-4">
@@ -22,6 +21,5 @@
 
     <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
 
-    {{credentials|json}}
   </form>
 <!--//modo correto de chamar evento OUTPUT [(nome do evento)]-->

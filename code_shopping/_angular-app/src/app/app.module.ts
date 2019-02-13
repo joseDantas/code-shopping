@@ -43,7 +43,7 @@ const routes: Routes = [    //mapeamento de rotas
     },
 
     {
-        path: 'user/list', component: ProductListComponent
+        path: 'users/list', component: UserListComponent
     },
     {       //quando a página estiver totalmente vazia, redireciona para a página de login
         path: '',

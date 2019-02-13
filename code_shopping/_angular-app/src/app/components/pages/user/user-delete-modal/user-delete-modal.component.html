@@ -1,3 +1,10 @@
-<p>
-  user-delete-modal works!
-</p>
+<modal>
+  <h5 modal-title>Exclusão de usuário</h5>
+  <div modal-body>
+    Deseja excluir o usuario {{user?.name}}?
+  </div>
+  <div modal-footer>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+    <button type="submit" class="btn btn-danger" (click)="destroy()">Excluir</button>
+  </div>
+</modal>

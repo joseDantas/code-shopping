@@ -3,7 +3,8 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from 'rxjs/internal/Observable'
 import {map} from "rxjs/operators";
 import {Category} from "../../model";
-import {HttpResource} from "./http-resource";
+import {HttpResource, SearchParamBuilder, SearchParams} from "./http-resource";
+import {AuthService} from "../auth.service";
 
 
 @Injectable({
@@ -13,60 +14,37 @@ export class CategoryHttpService implements HttpResource<Category>{
 
     private baseUrl = 'http://localhost:8000/api/categories';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private authService: AuthService) { }
 
-  list(page: number): Observable <{data: Array<Category>, meta: any}>{
-      const token = window.localStorage.getItem('token');
+  list(searchParams: SearchParams): Observable <{data: Array<Category>, meta: any}>{
       const params = new HttpParams({
-          fromObject: {
-              page: page + ""
-          }
+          fromObject: new SearchParamBuilder(searchParams).makeObject()
       });
       return this.http
           .get<{data: Array<Category>, meta: any}>
-          (this.baseUrl, {
-              params,
-          headers: {
-              'Authorization': `Bearer ${token}`
-          }
-      });
+          (this.baseUrl, {params});
   }
 
   get(id: number): Observable<Category>{
-    const token = window.localStorage.getItem('token');
     return this.http
         .get<{data: Category}>
-        (`${this.baseUrl}/${id}`,{
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
+        (`${this.baseUrl}/${id}`)
         .pipe(
             map(response => response.data)
         )
   }
 
   create(data: Category): Observable<Category>{
-      const token = window.localStorage.getItem('token');
       return this.http
-          .post<{data: Category}>(this.baseUrl, data, {
-              headers: {
-                  'Authorization': `Bearer ${token}`
-              }
-          })
+          .post<{data: Category}>(this.baseUrl, data)
           .pipe(
               map(response => response.data)
           );
   }
 
   update(id: number, data: Category): Observable<Category>{
-      const token = window.localStorage.getItem('token');
       return this.http
-          .put<{data: Category}>(`${this.baseUrl}/${id}`, data, {
-              headers: {
-                  'Authorization': `Bearer ${token}`
-              }
-          })
+          .put<{data: Category}>(`${this.baseUrl}/${id}`, data)
           .pipe(
               map(response => response.data)
           )
@@ -74,13 +52,8 @@ export class CategoryHttpService implements HttpResource<Category>{
   }
 
   destroy(id: number): Observable<any>{
-      const token = window.localStorage.getItem('token');
       return this.http
           .delete
-          (`${this.baseUrl}/${id}`,{
-              headers: {
-                  'Authorization': `Bearer ${token}`
-              }
-          })
+          (`${this.baseUrl}/${id}`)
   }
 }

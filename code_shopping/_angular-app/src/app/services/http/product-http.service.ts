@@ -3,23 +3,22 @@ import {Observable} from "rxjs";
 import {Product} from "../../model";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {map} from "rxjs/operators";
-import {HttpResource} from "./http-resource";
+import {HttpResource, SearchParams, SearchParamBuilder} from "./http-resource";
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductHttpService implements HttpResource<Product>{
 
-    private baseUrl = 'http://localhost:8000/api/products';
+    private baseUrl = `${environment.api.url}/products`;
 
     constructor(private http:HttpClient) { }
 
-    list(page: number): Observable <{data: Array<Product>, meta: any}>{
+    list(searchParams: SearchParams): Observable <{data: Array<Product>, meta: any}>{
         const token = window.localStorage.getItem('token');
         const params = new HttpParams({
-            fromObject: {
-                page: page + ""
-            }
+            fromObject: new SearchParamBuilder(searchParams).makeObject()
         });
         return this.http
             .get<{data: Array<Product>, meta: any}>

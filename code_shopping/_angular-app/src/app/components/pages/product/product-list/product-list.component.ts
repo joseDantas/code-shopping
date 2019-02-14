@@ -50,7 +50,7 @@ export class ProductListComponent implements OnInit {
 
     getProducts(){
         //this.productHttp.get(1).subscribe(product)
-        this.productHttp.list(this.pagination.page)
+        this.productHttp.list({page: this.pagination.page})
             .subscribe(response => {
                 this.products = response.data
                 this.pagination.totalItems = response.meta.total;

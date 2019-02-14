@@ -35,7 +35,13 @@
       if(this._categoryId){
           this.categoryHttp
               .get(this._categoryId)
-              .subscribe(category =>this.category = category)
+              .subscribe(category =>this.category = category,
+                  responseError =>{
+                            if(responseError.status == 401){
+                                this.modal.hide();
+                            }
+                  }
+              )
       }
     }
 

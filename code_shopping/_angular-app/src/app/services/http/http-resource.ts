@@ -3,7 +3,12 @@
 
         export interface SearchParams {
             page?: number;
-            all?: any
+            all?: any;
+            search?: string;
+            sort?:{
+                column: string;
+                sort: string;
+            }
         }
 
         export class SearchParamBuilder {
@@ -18,6 +23,14 @@
             if (this.searchParams.all) {
             sParams.all = '1';
             delete sParams.page; //Elimina a pagina do objeto, para não precisar passar a paginação
+                }
+                if(this.searchParams.search && this.searchParams.search !== ''){
+                    sParams.search = this.searchParams.search;
+                }
+                if(this.searchParams.sort){
+                    const sortSymbol = this.searchParams.sort.sort === 'desc' ? '-' : '';
+                    const columnName = this.searchParams.sort.column;
+                    sParams.sort = `${sortSymbol}${columnName}`
                 }
                 return sParams;
             }

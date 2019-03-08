@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {ModalComponent} from "../../../bootstrap/modal/modal.component";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ProductHttpService} from "../../../../services/http/product-http.service";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'product-edit-modal',
@@ -10,23 +11,21 @@ import {ProductHttpService} from "../../../../services/http/product-http.service
 })
 export class ProductEditModalComponent implements OnInit {
 
-    product = {
-        name:'',
-        description:'',
-        price:0,
-        active: true
-    };
-
-
     _productId: number;
-
+    form: FormGroup;
 
     @ViewChild(ModalComponent) modal: ModalComponent;
-
     @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
     @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
-    constructor(private productHttp: ProductHttpService) { }
+    constructor(private productHttp: ProductHttpService, private formBuilder: FormBuilder) {
+        this.form = this.formBuilder.group({
+            name: '',
+            description:'',
+            price:0,
+            active: true
+        });
+    }
 
     ngOnInit() {
     }
@@ -37,13 +36,19 @@ export class ProductEditModalComponent implements OnInit {
         if(this._productId){
             this.productHttp
                 .get(this._productId)
-                .subscribe(product =>this.product = product)
+                .subscribe(product =>this.form.patchValue(product),
+                    responseError =>{
+                        if(responseError.status == 401){
+                            this.modal.hide();
+                        }
+                    }
+                    )
         }
     }
 
     submit(){
         this.productHttp
-            .update(this._productId, this.product)
+            .update(this._productId, this.form.value)
             .subscribe((product) => {
                 this.onSuccess.emit(product);
                 this.modal.hide();

@@ -22,6 +22,9 @@ export class ProductListComponent implements OnInit {
         totalItems: 0,
         itemsPerPage: 10
     }
+
+    sortColumn = {column: 'created_at', sort: 'desc'};
+
     @ViewChild(ProductNewModalComponent)
     productNewModal: ProductNewModalComponent;
 
@@ -32,6 +35,7 @@ export class ProductListComponent implements OnInit {
     productDeleteModal: ProductDeleteModalComponent;
 
     productId: number;
+    searchText: string;
 
 
     constructor(private productHttp:ProductHttpService,
@@ -50,7 +54,10 @@ export class ProductListComponent implements OnInit {
 
     getProducts(){
         //this.productHttp.get(1).subscribe(product)
-        this.productHttp.list({page: this.pagination.page})
+        this.productHttp.list({
+            page: this.pagination.page,
+            sort: this.sortColumn.column === ''? null: this.sortColumn,
+            search: this.searchText})
             .subscribe(response => {
                 this.products = response.data
                 this.pagination.totalItems = response.meta.total;
@@ -60,6 +67,15 @@ export class ProductListComponent implements OnInit {
 
     pageChanged(page){
         this.pagination.page = page;
+        this.getProducts()
+    }
+
+    sort(sortColumn){
+        this.getProducts();
+    }
+
+    search(search){
+        this.searchText = search;
         this.getProducts()
     }
 }

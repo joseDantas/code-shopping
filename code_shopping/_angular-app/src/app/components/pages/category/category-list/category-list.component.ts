@@ -11,7 +11,7 @@ import {CategoryDeleteServive} from "./category-delete.servive";
 
 
 @Component({
-  selector: 'app-category-list',
+  selector: 'category-list',
   templateUrl: './category-list.component.html',
   styleUrls: ['./category-list.component.css']
 })
@@ -27,16 +27,13 @@ export class CategoryListComponent implements OnInit {
 
   @ViewChild(CategoryNewModalComponent)
   categoryNewModal: CategoryNewModalComponent;
-
   @ViewChild(CategoryEditModalComponent)
   categoryEditModal: CategoryEditModalComponent;
-
   @ViewChild(CategoryDeleteModalComponent)
   categoryDeleteModal: CategoryDeleteModalComponent;
 
   categoryId: number;
   searchText: string;
-
 
   constructor(private categoryHttp:CategoryHttpService,
               protected categoryInsertService: CategoryInsertServive,

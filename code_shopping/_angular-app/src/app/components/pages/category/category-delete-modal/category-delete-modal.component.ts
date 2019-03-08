@@ -13,9 +13,7 @@ export class CategoryDeleteModalComponent implements OnInit {
   category = null;
   _categoryId: number;
 
-
     @ViewChild(ModalComponent) modal: ModalComponent;
-
     @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
     @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 

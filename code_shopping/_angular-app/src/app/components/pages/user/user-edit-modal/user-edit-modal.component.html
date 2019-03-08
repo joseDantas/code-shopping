@@ -1,19 +1,8 @@
 <form (submit)="submit()">
   <modal (onHide)="hideModel($event)">
-    <h5 modal-title>Editar Usuário - {{user.name}}</h5>
+    <h5 modal-title>Editar Usuário - {{form.get('name').value}}</h5>
     <div modal-body>
-      <div class="form-group">
-        <label for="name">Nome</label>
-        <input type="text" class="form-control" id="name" name="name" required
-               [(ngModel)]="user.name">
-      </div>
-
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" name="email"
-               [(ngModel)]="user.email" required>
-      </div>
-
+      <user-form [form]="form"></user-form>
     </div>
     <div modal-footer>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

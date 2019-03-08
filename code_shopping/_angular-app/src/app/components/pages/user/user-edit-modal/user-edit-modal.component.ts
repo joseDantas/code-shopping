@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angula
 import {ModalComponent} from "../../../bootstrap/modal/modal.component";
 import {HttpErrorResponse} from "@angular/common/http";
 import {UserHttpService} from "../../../../services/http/user-http.service";
-import {User} from "../../../../model";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 
 @Component({
@@ -12,22 +12,21 @@ import {User} from "../../../../model";
 })
 export class UserEditModalComponent implements OnInit {
 
-    user: User = {
-        name:'',
-        email:'',
-        //password:''
-    };
-
-
     _userId: number;
+    form: FormGroup;
 
 
     @ViewChild(ModalComponent) modal: ModalComponent;
-
     @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
     @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
-    constructor(private userHttp: UserHttpService) { }
+    constructor(private userHttp: UserHttpService, private formBuilder: FormBuilder) {
+        this.form = this.formBuilder.group({
+            name: '',
+            email:'',
+            password: ''
+        });
+    }
 
     ngOnInit() {
     }
@@ -38,17 +37,22 @@ export class UserEditModalComponent implements OnInit {
         if(this._userId){
             this.userHttp
                 .get(this._userId)
-                .subscribe(user =>this.user = user)
+                .subscribe(user =>this.form.patchValue(user),
+                    responseError =>{
+                        if(responseError.status == 401){
+                            this.modal.hide();
+                        }
+                    }
+                    )
         }
     }
 
     submit(){
         this.userHttp
-            .update(this._userId, this.user)
+            .update(this._userId, this.form.value)
             .subscribe((user) => {
                 this.onSuccess.emit(user);
                 this.modal.hide();
-                //this.getProduct();
             }, error=> this.onError.emit(error));
     }
 

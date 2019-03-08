@@ -4,6 +4,7 @@ namespace CodeShopping\Http\Controllers\Api;
 
 use CodeShopping\Commom\OnlyTrashed;
 use CodeShopping\Http\Controllers\Controller;
+use CodeShopping\Http\Filters\ProductFilter;
 use CodeShopping\Http\Requests\ProductRequest;
 use CodeShopping\Http\Resources\ProductResource;
 use CodeShopping\Models\Product;
@@ -15,9 +16,12 @@ class ProductController extends Controller
     use OnlyTrashed;
     public function index(Request $request)
     {
-        $query = Product::query();
-        $query = $this->onlyTrashedIfRequest($request, $query);
-        $products = $query->paginate(10);
+
+        /**@var ProductFilter $filter */
+        $filter = app(ProductFilter::class);
+        /** @var Builder $filterQuery */
+        $filterQuery = Product::filtered($filter);
+        $products = $request->has('all')? $filterQuery->get() : $filterQuery->paginate(5);
         return ProductResource::collection($products); //personalização dos dados
     }
 

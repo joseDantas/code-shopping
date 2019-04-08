@@ -17,11 +17,13 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        /**@var ProductFilter $filter */
         $filter = app(ProductFilter::class);
-        /** @var Builder $filterQuery */
-        $filterQuery = Product::filtered($filter);
-        $products = $request->has('all')? $filterQuery->get() : $filterQuery->paginate(5);
+        $query = Product::query();
+        $query = $this->onlyTrashedIfRequest($request, $query);
+        $filterQuery = $query->filtered($filter);
+        $products = $filter -> hasFilterParameter()?
+            $filterQuery->get():
+            $filterQuery->paginate(10);
         return ProductResource::collection($products); //personalização dos dados
     }
 

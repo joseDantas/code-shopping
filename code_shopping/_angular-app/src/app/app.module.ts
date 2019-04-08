@@ -41,6 +41,10 @@ import { IsInvalidDirective } from './directives/is-invalid.directive';
 import { ListErrorComponent } from './components/bootstrap/list-error/list-error.component';
 import { CardErrorComponent } from './components/bootstrap/card-error/card-error.component';
 import { UserFormComponent } from './components/pages/user/user-form/user-form.component';
+import { ProductInputListComponent } from './components/pages/product-input/product-input-list/product-input-list.component';
+import { ProductInputFormComponent } from './components/pages/product-input/product-input-form/product-input-form.component';
+import { ProductInputNewModalComponent } from './components/pages/product-input/product-input-new-modal/product-input-new-modal.component';
+import { ProductInputSearchFormComponent } from './components/pages/product-input/product-input-search-form/product-input-search-form.component';
 
 
 
@@ -89,6 +93,10 @@ import { UserFormComponent } from './components/pages/user/user-form/user-form.c
     ListErrorComponent,
     CardErrorComponent,
     UserFormComponent,
+    ProductInputListComponent,
+    ProductInputFormComponent,
+    ProductInputNewModalComponent,
+    ProductInputSearchFormComponent,
   ],
   imports: [
       BrowserModule,

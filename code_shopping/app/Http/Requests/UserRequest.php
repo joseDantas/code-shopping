@@ -23,6 +23,7 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
             'name' => 'required|max:255',
             'email' => 'required|max:255|email|unique:users,email', //metodo que impossibilita o cadstro do mesmo email

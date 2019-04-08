@@ -15,11 +15,6 @@ const fieldsOptions: FieldsOptions = {
     password:{
         id: 'password',
         label:'Senha'
-    },
-
-    active: {
-        id: 'active',
-        label: 'Ativo'
     }
 };
 

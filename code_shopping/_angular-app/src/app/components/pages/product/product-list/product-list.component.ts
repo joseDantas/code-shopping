@@ -20,7 +20,7 @@ export class ProductListComponent implements OnInit {
     pagination = {
         page: 1,
         totalItems: 0,
-        itemsPerPage: 10
+        itemsPerPage: 15
     }
 
     sortColumn = {column: 'created_at', sort: 'desc'};

@@ -23,7 +23,7 @@ class UserController extends Controller
         $filter = app(UserFilter::class);
         /** @var Builder $filterQuery */
         $filterQuery = User::filtered($filter);
-        $users = $request->has('all')? $filterQuery->get() : $filterQuery->paginate(5);
+        $users = $request->has('all')? $filterQuery->get() : $filterQuery->paginate(15);
         return UserResource::collection($users);
     }
 

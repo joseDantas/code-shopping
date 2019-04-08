@@ -23,6 +23,14 @@ export interface ProductCategory {
     categories: Category [];
 }
 
+export interface ProductInput {
+    id?: number;
+    amount: number;
+    readonly created_at?: {date:string};
+    readonly updated_at?: {date:string};
+    product: Product
+}
+
 export interface User {
     id?: number;
     name: string;

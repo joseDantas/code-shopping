@@ -1,0 +1,15 @@
+<form (submit)="submit()">
+  <modal (onHide)="hideModel($event)">
+    <h5 modal-title>Nova Entrada</h5>
+    <div modal-body>
+      <card-error *ngIf="showErrors()">
+        <list-error [errors]="errors"></list-error>
+      </card-error>
+      <product-form [form]="form"></product-form>
+    </div>
+    <div modal-footer>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Incluir</button>
+    </div>
+  </modal>
+</form>

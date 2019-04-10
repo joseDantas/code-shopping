@@ -1,8 +1,8 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ModalComponent} from "../../../bootstrap/modal/modal.component";
 import {HttpErrorResponse} from "@angular/common/http";
-import fieldsOptions from "../../product/product-form/product-fields-options";
+import fieldsOptions from "../product-input-form/product-input-fields-options";
 import {ProductInputHttpService} from "../../../../services/http/product-input-http.service";
 
 @Component({
@@ -20,12 +20,9 @@ export class ProductInputNewModalComponent implements OnInit {
     @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
     constructor(private inputHttp: ProductInputHttpService, private formBuilder:FormBuilder) {
-        const maxLength = fieldsOptions.name.validationMessage.maxlength;
         this.form = this.formBuilder.group({
-            name: [''],
-            description: [''],
-            price: [''],
-            active: true
+            product_id: [null, [Validators.required]],
+            amount: ['', [Validators.required, Validators.min(fieldsOptions.amount.validationMessage.min)]],
         });
     }
 
@@ -35,14 +32,13 @@ export class ProductInputNewModalComponent implements OnInit {
     submit(){
         this.inputHttp
             .create(this.form.value)
-            .subscribe((product) => {
+            .subscribe((input) => {
                 this.form.reset({
-                    name:'',
-                    description: '',
-                    price: '',
-                    active: true
+                    amount: '',
+                    product_id: null,
+
                 });
-                this.onSuccess.emit(product);
+                this.onSuccess.emit(input);
                 this.modal.hide();
             }, responseError => {
                 if (responseError.status === 422) {
@@ -53,12 +49,6 @@ export class ProductInputNewModalComponent implements OnInit {
     }
 
     showModal(){
-        this.form.reset({
-            name:'',
-            description: '',
-            price: '',
-            active: true
-        });
         this.modal.show()
 
     }
@@ -68,12 +58,6 @@ export class ProductInputNewModalComponent implements OnInit {
     }
 
     hideModel($event: Event){
-        this.form.reset({
-            name:'',
-            description: '',
-            price: '',
-            active: true
-        });
         console.log($event);
     }
 }

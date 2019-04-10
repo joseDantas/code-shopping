@@ -28,7 +28,7 @@ export interface ProductInput {
     amount: number;
     readonly created_at?: {date:string};
     readonly updated_at?: {date:string};
-    product: Product
+    product: Product;
 }
 
 export interface User {

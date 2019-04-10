@@ -21,10 +21,10 @@ const routes: Routes = [    //mapeamento de rotas
         path: 'products/:product/categories/list', component: ProductCategoryListComponent, canActivate: [AuthGuard]
     },
     {
-        path: 'products/list', component: ProductListComponent, canActivate: [AuthGuard]
+        path: 'inputs/list', component: ProductInputListComponent, canActivate: [AuthGuard]
     },
     {
-        path: 'inputs/list', component: ProductInputListComponent, canActivate: [AuthGuard]
+        path: 'products/list', component: ProductListComponent, canActivate: [AuthGuard]
     },
 
     {

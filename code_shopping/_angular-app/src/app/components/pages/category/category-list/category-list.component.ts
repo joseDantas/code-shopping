@@ -8,8 +8,6 @@ import {CategoryInsertServive} from "./category-insert.servive";
 import {CategoryEditServive} from "./category-edit.servive";
 import {CategoryDeleteServive} from "./category-delete.servive";
 
-
-
 @Component({
   selector: 'category-list',
   templateUrl: './category-list.component.html',

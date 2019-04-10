@@ -10,21 +10,17 @@ import {ProductInputListComponent} from "./product-input-list.component";
 })
 export  class ProductInputInsertService {
 
-    private _productInputInsertComponent: ProductInputListComponent
-
+    private _productInputInsertComponent: ProductInputListComponent;
     constructor(private notifyMessage: NotifyMessageService){
-
     }
 
     set inputListComponent(value: ProductInputListComponent){
         this._productInputInsertComponent = value;
     }
 
-    showModalInsert(productId){
-        this._productInputInsertComponent.inputs = productId;
+    showModalInsert(){
         this._productInputInsertComponent.inputNewModal.showModal()
     }
-
 
     onInsertSuccess($event: any){
         this.notifyMessage.success('Produto foi inserido com sucesso!');

@@ -16,7 +16,7 @@ export class ProductInputHttpService {
     constructor(private http:HttpClient) { }
 
     list(searchParams: SearchParams): Observable <{data: Array<ProductInput>, meta: any}>{
-        const sParams = new SearchParamBuilder(searchParams).makeObject()
+        const sParams = new SearchParamBuilder(searchParams).makeObject();
         const params = new HttpParams({
             fromObject: (<any>sParams)
         });

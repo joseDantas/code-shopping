@@ -10,7 +10,7 @@ import {ProductListComponent} from "./product-list.component";
 })
 export  class ProductInsertService {
 
-    private _productInsertComponent: ProductListComponent
+    private _productInsertComponent: ProductListComponent;
 
     constructor(private notifyMessage: NotifyMessageService){
 

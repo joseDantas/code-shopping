@@ -37,7 +37,7 @@ import { UserSearchFormComponent } from './components/pages/user/user-search-for
 import { CategoryFormComponent } from './components/pages/category/category-form/category-form.component';
 import { ProductFormComponent } from './components/pages/product/product-form/product-form.component';
 import { FieldErrorComponent } from './components/bootstrap/field-error/field-error.component';
-import { IsInvalidDirective } from './directives/is-invalid.directive';
+import {IsInvalidControlDirective, IsInvalidDirective} from './directives/is-invalid.directive';
 import { ListErrorComponent } from './components/bootstrap/list-error/list-error.component';
 import { CardErrorComponent } from './components/bootstrap/card-error/card-error.component';
 import { UserFormComponent } from './components/pages/user/user-form/user-form.component';
@@ -45,6 +45,7 @@ import { ProductInputListComponent } from './components/pages/product-input/prod
 import { ProductInputFormComponent } from './components/pages/product-input/product-input-form/product-input-form.component';
 import { ProductInputNewModalComponent } from './components/pages/product-input/product-input-new-modal/product-input-new-modal.component';
 import { ProductInputSearchFormComponent } from './components/pages/product-input/product-input-search-form/product-input-search-form.component';
+import {Select2Module} from "ng2-select2";
 
 
 
@@ -90,13 +91,14 @@ import { ProductInputSearchFormComponent } from './components/pages/product-inpu
     ProductFormComponent,
     FieldErrorComponent,
     IsInvalidDirective,
+    IsInvalidControlDirective,
     ListErrorComponent,
     CardErrorComponent,
     UserFormComponent,
     ProductInputListComponent,
     ProductInputFormComponent,
     ProductInputNewModalComponent,
-    ProductInputSearchFormComponent,
+    ProductInputSearchFormComponent
   ],
   imports: [
       BrowserModule,
@@ -105,6 +107,7 @@ import { ProductInputSearchFormComponent } from './components/pages/product-inpu
       HttpClientModule,
       AppRoutingModule,
       NgxPaginationModule,
+      Select2Module,
       JwtModule.forRoot({   //PASSANDO TOKEN AUTOMATICO
           jwtOptionsProvider: {
               provide: JWT_OPTIONS,

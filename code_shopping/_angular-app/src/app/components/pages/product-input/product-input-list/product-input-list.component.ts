@@ -12,25 +12,22 @@ import {ProductInputInsertService} from "./product-input-insert.service";
 })
 export class ProductInputListComponent implements OnInit {
 
+
     inputs: Array<ProductInput> = [];
     pagination = {
         page: 1,
         totalItems: 0,
         itemsPerPage: 15
-    }
-
+    };
     sortColumn = {column: 'created_at', sort: 'desc'};
+    searchText: string;
 
     @ViewChild(ProductInputNewModalComponent)
     inputNewModal: ProductInputNewModalComponent;
 
-    searchText: string;
-
-
     constructor(private inputHttp:ProductInputHttpService,
                 protected inputInsertService: ProductInputInsertService) {
                 this.inputInsertService.inputListComponent = this;
-
     }
 
     ngOnInit() {

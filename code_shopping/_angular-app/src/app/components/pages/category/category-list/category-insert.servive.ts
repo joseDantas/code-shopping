@@ -9,7 +9,7 @@ import {CategoryListComponent} from "./category-list.component";
 })
 export  class CategoryInsertServive {
 
-    private _categoryListComponent: CategoryListComponent
+    private _categoryListComponent: CategoryListComponent;
 
     constructor(private notifyMessage: NotifyMessageService){
 

@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import fieldsOptions from "../../product-input/product-input-form/product-input-fields-options";
+import fieldsOptions from "./product-input-fields-options";
 import {FormGroup} from "@angular/forms";
 import {ProductIdFieldService} from "./product-id-field";
 import {Select2Component} from "ng2-select2";

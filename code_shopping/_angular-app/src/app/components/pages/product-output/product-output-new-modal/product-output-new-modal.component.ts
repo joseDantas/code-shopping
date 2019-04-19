@@ -2,15 +2,16 @@ import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core'
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ModalComponent} from "../../../bootstrap/modal/modal.component";
 import {HttpErrorResponse} from "@angular/common/http";
-import fieldsOptions from "../product-input-form/product-input-fields-options";
-import {ProductInputHttpService} from "../../../../services/http/product-input-http.service";
+import {ProductOutputHttpService} from "../../../../services/http/product-output-http.service";
+import fieldsOptions from "../product-output-form/product-output-fields-options";
+
 
 @Component({
-  selector: 'product-input-new-modal',
-  templateUrl: './product-input-new-modal.component.html',
-  styleUrls: ['./product-input-new-modal.component.css']
+  selector: 'product-output-new-modal',
+  templateUrl: './product-output-new-modal.component.html',
+  styleUrls: ['./product-output-new-modal.component.css']
 })
-export class ProductInputNewModalComponent implements OnInit {
+export class ProductOutputNewModalComponent implements OnInit {
 
     form: FormGroup;
     errors = {};
@@ -19,7 +20,7 @@ export class ProductInputNewModalComponent implements OnInit {
     @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
     @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
-    constructor(private inputHttp: ProductInputHttpService, private formBuilder:FormBuilder) {
+    constructor(private outputHttp: ProductOutputHttpService, private formBuilder:FormBuilder) {
         this.form = this.formBuilder.group({
             product_id: [null, [Validators.required]],
             amount: ['', [Validators.required, Validators.min(fieldsOptions.amount.validationMessage.min)]],
@@ -30,15 +31,15 @@ export class ProductInputNewModalComponent implements OnInit {
     }
 
     submit(){
-        this.inputHttp
+        this.outputHttp
             .create(this.form.value)
-            .subscribe((input) => {
+            .subscribe((output) => {
                 this.form.reset({
                     amount: '',
                     product_id: null,
 
                 });
-                this.onSuccess.emit(input);
+                this.onSuccess.emit(output);
                 this.modal.hide();
             }, responseError => {
                 if (responseError.status === 422) {

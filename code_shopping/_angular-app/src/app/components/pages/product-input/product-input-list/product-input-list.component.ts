@@ -4,7 +4,6 @@ import {ProductInputNewModalComponent} from "../product-input-new-modal/product-
 import {ProductInputHttpService} from "../../../../services/http/product-input-http.service";
 import {ProductInputInsertService} from "./product-input-insert.service";
 
-
 @Component({
   selector: 'product-input-list',
   templateUrl: './product-input-list.component.html',

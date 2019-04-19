@@ -17,11 +17,9 @@ class ProductOutputResource extends JsonResource
         return [
             'id'=> $this->id,
             'amount'=>$this->amount,
-            'created_at'>$this->created_at,
-            'updated_at'=>$this->updated_at,
-            'product'=>new ProductResource($this->product)
-
-
+            'created_at'=>$this->created_at,
+            'updated_at' => $this->updated_at,
+            'product' => new ProductResource($this->product)
         ];
     }
 }

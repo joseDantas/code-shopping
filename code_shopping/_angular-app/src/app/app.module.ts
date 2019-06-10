@@ -50,6 +50,7 @@ import { ProductOutputListComponent } from './components/pages/product-output/pr
 import { ProductOutputNewModalComponent } from './components/pages/product-output/product-output-new-modal/product-output-new-modal.component';
 import { ProductOutputSearchFormComponent } from './components/pages/product-output/product-output-search-form/product-output-search-form.component';
 import { ProductOutputFormComponent } from './components/pages/product-output/product-output-form/product-output-form.component';
+import { ProductPhotoMenagerComponent } from './components/pages/product-photo/product-photo-menager/product-photo-menager.component';
 
 
 
@@ -106,7 +107,8 @@ import { ProductOutputFormComponent } from './components/pages/product-output/pr
     ProductOutputListComponent,
     ProductOutputNewModalComponent,
     ProductOutputSearchFormComponent,
-    ProductOutputFormComponent
+    ProductOutputFormComponent,
+    ProductPhotoMenagerComponent
   ],
   imports: [
       BrowserModule,

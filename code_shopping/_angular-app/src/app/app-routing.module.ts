@@ -9,6 +9,7 @@ import {ProductListComponent} from "./components/pages/product/product-list/prod
 import {UserListComponent} from "./components/pages/user/user-list/user-list.component";
 import {ProductInputListComponent} from "./components/pages/product-input/product-input-list/product-input-list.component";
 import {ProductOutputListComponent} from "./components/pages/product-output/product-output-list/product-output-list.component";
+import { ProductPhotoMenagerComponent } from './components/pages/product-photo/product-photo-menager/product-photo-menager.component';
 
 
 const routes: Routes = [    //mapeamento de rotas
@@ -20,6 +21,9 @@ const routes: Routes = [    //mapeamento de rotas
     },
     {
         path: 'products/:product/categories/list', component: ProductCategoryListComponent, canActivate: [AuthGuard]
+    },
+    {
+        path: 'products/:product/photos/menager', component: ProductPhotoMenagerComponent, canActivate: [AuthGuard]
     },
     {
         path: 'inputs/list', component: ProductInputListComponent, canActivate: [AuthGuard]

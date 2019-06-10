@@ -13,9 +13,9 @@ export class ProductOutputHttpService {
 
     private baseUrl = `${environment.api.url}/outputs`;
 
-    constructor(private http:HttpClient) { }
+    constructor(private http: HttpClient) { }
 
-    list(searchParams: SearchParams): Observable <{data: Array<ProductOutput>, meta: any}>{
+    list(searchParams: SearchParams): Observable <{data: Array<ProductOutput>, meta: any}> {
         const sParams = new SearchParamBuilder(searchParams).makeObject();
         const params = new HttpParams({
             fromObject: (<any>sParams)
@@ -25,7 +25,7 @@ export class ProductOutputHttpService {
             (this.baseUrl, {params});
     }
 
-    get(id: number): Observable<ProductOutput>{
+    get(id: number): Observable<ProductOutput> {
         return this.http
             .get<{data: ProductOutput}>(`${this.baseUrl}/${id}`)
             .pipe(
